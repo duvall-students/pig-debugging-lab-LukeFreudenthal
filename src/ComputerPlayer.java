@@ -4,6 +4,9 @@ public class ComputerPlayer extends Player{
 	
 	public ComputerPlayer(){
 		super("R2D2");
+//		The computer never assigned the name
+//		to be 'R2D2' so it was only null when running
+		myName = "R2D2";
 	}
 
 	@Override

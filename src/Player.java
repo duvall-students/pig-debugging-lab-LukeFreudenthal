@@ -21,6 +21,7 @@ public abstract class Player {
 	}
 	
 	public void resetScore(){
+		System.out.println("Losing points???");
 		myScore = 0;
 	}
 	
