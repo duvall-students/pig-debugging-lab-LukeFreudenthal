@@ -7,8 +7,9 @@ public class Game {
 	Player player2 = new ComputerPlayer();
 	private Random die;
 	private Spinner spinner;
-//	Changed from "grunt" to "GRUNT"
-	private final String LOSER_SPIN = "GRUNT";
+//	Changed from "GRUNT" back to "grunt",
+//	deemed unnecessary of a change
+	private final String LOSER_SPIN = "grunt";
 	private final int LOSER_ROLL = 1;
 	
 	public Game(){
@@ -63,8 +64,10 @@ public class Game {
 //			The issue was that loser roll check did not
 //			include a check for loser spin.
 //			Added a check within the loser roll check
-//			to see if the loser spin is also true
-				if(spin == LOSER_SPIN){
+//			to see if the loser spin is also true.
+//			Also added .toLowerCase() to match loser spins	
+//			and changed from == to .equals()
+				if(spin.toLowerCase().equals(LOSER_SPIN)){
 					System.out.println("Too bad!  Lose all your points and lose a turn.");
 					whoseTurn.resetScore();
 					return 0;
@@ -73,9 +76,9 @@ public class Game {
 					return 0;
 				}
 			}
-//			Removed unnecessary .toUpperCase() and set the
-//			variable to be initialized as "GRUNT" 
-			else if(spin == LOSER_SPIN){
+//			Changed spin to lower case and changed from mathematical comparison
+//			to string comparison with .equals()
+			else if(spin.toLowerCase().equals(LOSER_SPIN)){
 				System.out.println("Too bad!  Lose all your points.");
 				whoseTurn.resetScore();
 				return 0;
