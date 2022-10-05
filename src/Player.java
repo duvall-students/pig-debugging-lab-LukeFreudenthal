@@ -7,6 +7,12 @@ public abstract class Player {
 	
 	public Player(String myName){
 		myScore = 0;
+		/*
+		 * Corrected from assigning the name "R2D2" in the
+		 * computer class, to assignment in the player constructor
+		 * which will be passed into the computer class
+		 */
+		this.myName = myName;
 	}
 	
 	// Each player must provide logic for deciding to roll again

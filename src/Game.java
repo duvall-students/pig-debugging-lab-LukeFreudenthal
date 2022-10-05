@@ -1,16 +1,20 @@
 import java.util.Random;
 
 public class Game {
-	private Player player1;
-	private Player player2;
+	// NullPointerException was thrown because GUIPlayer and ComputerPlayer
+	// were assigned to the incorrect player1 and player2 Player objects
+	Player player1 = new GUIPlayer();
+	Player player2 = new ComputerPlayer();
 	private Random die;
 	private Spinner spinner;
+//	Changed from "GRUNT" back to "grunt",
+//	deemed unnecessary of a change
 	private final String LOSER_SPIN = "grunt";
 	private final int LOSER_ROLL = 1;
 	
 	public Game(){
-		Player player1 = new GUIPlayer();
-		Player player2 = new ComputerPlayer();
+//		Player player1 = new GUIPlayer();
+//		Player player2 = new ComputerPlayer();
 		die = new Random();
 		spinner = new Spinner();
 	}
@@ -48,15 +52,33 @@ public class Game {
 		boolean keepGoing = true;
 		printStartRoundMessage(whoseTurn);
 		while(keepGoing){
-			int roll = die.nextInt(7);
+//			int roll = die.nextInt(7);
+//			The issue was that it was 0(inclusive) to 7(exclusive),
+//			the change below turns any 0 into a 1 and any 5 into a 6,
+//			thus creating the correct range of 1-6 (inclusive)
+			int roll = die.nextInt(6) + 1;
 			String spin = spinner.spin();
 			System.out.println(roll+ " "+ spin);
 			
 			if(roll == LOSER_ROLL){
-				System.out.println("Lose a turn.");
-				return 0;
+//			The issue was that loser roll check did not
+//			include a check for loser spin.
+//			Added a check within the loser roll check
+//			to see if the loser spin is also true.
+//			Also added .toLowerCase() to match loser spins	
+//			and changed from == to .equals()
+				if(spin.toLowerCase().equals(LOSER_SPIN)){
+					System.out.println("Too bad!  Lose all your points and lose a turn.");
+					whoseTurn.resetScore();
+					return 0;
+				} else {
+					System.out.println("Lose a turn.");
+					return 0;
+				}
 			}
-			else if(spin == LOSER_SPIN.toUpperCase()){
+//			Changed spin to lower case and changed from mathematical comparison
+//			to string comparison with .equals()
+			else if(spin.toLowerCase().equals(LOSER_SPIN)){
 				System.out.println("Too bad!  Lose all your points.");
 				whoseTurn.resetScore();
 				return 0;
@@ -72,7 +94,10 @@ public class Game {
 	
 	// True if one of the players has won the game.
 	public boolean winner(){
-		return player1.hasWon() && player2.hasWon();
+//		return player1.hasWon() && player2.hasWon();
+//		Issue was that it required both players to win,
+//		changing 'and' to 'or' solves this 
+		return player1.hasWon() || player2.hasWon();
 	}
 	
 	/* 
